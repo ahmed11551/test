@@ -29,7 +29,8 @@ const ChatContainer = () => {
       const fetchedMessages = await fetchMessages()
       setMessages(fetchedMessages)
     } catch (err) {
-      setError('Не удалось загрузить сообщения')
+      const errorMessage = err instanceof Error ? err.message : 'Не удалось загрузить сообщения'
+      setError(errorMessage)
       console.error('Error loading messages:', err)
     } finally {
       setLoading(false)
@@ -40,10 +41,12 @@ const ChatContainer = () => {
     if (!text.trim()) return
 
     try {
+      setError(null)
       const newMessage = await sendMessage({ text, sender: 'user' })
       setMessages((prev) => [...prev, newMessage])
     } catch (err) {
-      setError('Не удалось отправить сообщение')
+      const errorMessage = err instanceof Error ? err.message : 'Не удалось отправить сообщение'
+      setError(errorMessage)
       console.error('Error sending message:', err)
     }
   }

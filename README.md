@@ -52,6 +52,8 @@ npm run dev
 
 Подробные инструкции по деплою находятся в файле [DEPLOY.md](./DEPLOY.md)
 
+Если возникли проблемы с 404 ошибками, см. [TROUBLESHOOTING.md](./TROUBLESHOOTING.md)
+
 Рекомендуемые платформы:
 - **Бекенд**: Railway или Render
 - **Фронтенд**: Vercel или Netlify

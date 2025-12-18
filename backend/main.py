@@ -55,3 +55,22 @@ def clear_messages():
     messages_storage.clear()
     return {"status": "ok", "message": "All messages cleared"}
 
+@app.get("/health")
+def health_check():
+    return {"status": "ok", "service": "Chat API"}
+
+@app.exception_handler(404)
+async def not_found_handler(request, exc):
+    return {
+        "error": "Not Found",
+        "message": f"The requested endpoint {request.url.path} was not found",
+        "available_endpoints": [
+            "GET /",
+            "GET /health",
+            "GET /messages",
+            "POST /messages",
+            "DELETE /messages",
+            "GET /docs"
+        ]
+    }
+
