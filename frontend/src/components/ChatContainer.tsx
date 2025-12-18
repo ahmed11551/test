@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import MessageList from './MessageList'
 import MessageInput from './MessageInput'
+import Diagnostics from './Diagnostics'
 import { Message } from '../types'
 import { fetchMessages, sendMessage } from '../api'
 
@@ -57,9 +58,15 @@ const ChatContainer = () => {
         <h1 className="text-lg font-medium">Telegram Chat</h1>
       </div>
       
+      <Diagnostics />
+      
       {error && (
         <div className="bg-red-100 text-red-700 px-4 py-2 text-sm">
-          {error}
+          <div className="font-semibold">Ошибка:</div>
+          <div>{error}</div>
+          <div className="mt-2 text-xs">
+            API URL: {import.meta.env.VITE_API_URL || 'http://localhost:8000'}
+          </div>
         </div>
       )}
 

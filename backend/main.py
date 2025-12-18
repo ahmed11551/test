@@ -59,18 +59,25 @@ def clear_messages():
 def health_check():
     return {"status": "ok", "service": "Chat API"}
 
+from fastapi.responses import JSONResponse
+
 @app.exception_handler(404)
 async def not_found_handler(request, exc):
-    return {
-        "error": "Not Found",
-        "message": f"The requested endpoint {request.url.path} was not found",
-        "available_endpoints": [
-            "GET /",
-            "GET /health",
-            "GET /messages",
-            "POST /messages",
-            "DELETE /messages",
-            "GET /docs"
-        ]
-    }
+    return JSONResponse(
+        status_code=404,
+        content={
+            "error": "Not Found",
+            "message": f"The requested endpoint {request.url.path} was not found",
+            "requested_path": str(request.url.path),
+            "requested_method": request.method,
+            "available_endpoints": [
+                "GET /",
+                "GET /health",
+                "GET /messages",
+                "POST /messages",
+                "DELETE /messages",
+                "GET /docs"
+            ]
+        }
+    )
 
